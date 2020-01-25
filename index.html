@@ -63,8 +63,8 @@
     var kps = 0;
     var knowledgeperclick = 1;
     if (localStorage.getItem("time") != null){
-        kps = Number(localStorage.getItem("kps"));
-        knowledgeperclick = Number(localStorage.getItem("kpc"));
+        kps =localStorage.getItem("kps");
+        knowledgeperclick = localStorage.getItem("kpc");
         globalmultiplier = localStorage.getItem("globalmultiplier");
         thalesmultiplier = localStorage.getItem("thalesmultiplier");
         thaleslevel = localStorage.getItem("thaleslevel");
