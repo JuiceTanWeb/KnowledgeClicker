@@ -62,19 +62,6 @@
     var buysetting = "one";
     var kps = 0;
     var knowledgeperclick = 1;
-    if (localStorage.getItem("time") != null){
-        kps =localStorage.getItem("kps");
-        knowledgeperclick = localStorage.getItem("kpc");
-        globalmultiplier = localStorage.getItem("globalmultiplier");
-        thalesmultiplier = localStorage.getItem("thalesmultiplier");
-        thaleslevel = localStorage.getItem("thaleslevel");
-        pythagorasmultiplier = localStorage.getItem("pythagorasmultiplier");
-        pythagoraslevel = localStorage.getItem("pythagoraslevel");
-        euclidmultiplier = localStorage.getItem("euclidmultiplier");
-        euclidlevel = localStorage.getItem("euclidlevel");
-        archimedesmultiplier = localStorage.getItem("archimedesmultiplier");
-        archimedeslevel = localStorage.getItem("archimedeslevel");
-        knowledge = Number(localStorage.getItem("knowledge") + kps * ((Date.now()/1000) - localStorage.getItem("time")));}
         function changenumber() {
     var tetris = Math.round(10 * Math.random());
     document.getElementById("clicker").innerHTML = tetris;
@@ -255,22 +242,8 @@
     }
     }}
     window.setInterval(function(){
-        var today = Math.round(Date.now()/1000);
-        console.log(today);
         document.title = "Knowledge Clicker: " + knowledge + " knowledge";
-        localStorage.setItem("time", today);
-        localStorage.setItem("knowledge",Math.round(knowledge) );
-        localStorage.setItem("kps", kps);
-        localStorage.setItem("kpc", knowledgeperclick);
-        localStorage.setItem("globalmultiplier", globalmultiplier);
-        localStorage.setItem("thalesmultiplier", thalesmultiplier);
-        localStorage.setItem("thaleslevel", thaleslevel);
-        localStorage.setItem("pythagorasmultiplier", pythagorasmultiplier);
-        localStorage.setItem("pythagoraslevel", pythagoraslevel);
-        localStorage.setItem("euclidmultiplier", euclidmultiplier);
-        localStorage.setItem("euclidlevel", euclidlevel);
-        localStorage.setItem("archimedesmultiplier", archimedesmultiplier);
-        localStorage.setItem("archimedeslevel", archimedeslevel);
+        
         }, 1000)
         
     window.setInterval(function(){
