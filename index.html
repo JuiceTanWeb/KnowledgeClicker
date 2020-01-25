@@ -1,0 +1,280 @@
+<doctypeHTML!>
+<html>
+<head>
+     <meta charset="UTF-8">
+    <title>Knowledge Clicker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "icon" href = "favicon.ico" type="image/x-icon">
+<style>
+    body{
+        background-image: url('stars.jpeg');
+    }
+    h1{
+        background-color: aliceblue;
+    }
+    .buybutton{
+        float: center;
+        padding: 50px 100px 2px 2px;
+        font-family: monospace;
+        font-size: 3em;
+    }
+   </style>
+    </head>
+<body>
+    <h1 style = "text-align: center; display: inline-block;">Knowledge Clicker</h1>
+    <h1>Knowledge: <span style = "text-align: center" id = "themath"></span></h1>
+    <button onclick = "addknowledge();"><span style = "font-size: 12em" id = "clicker" onclick = 'changenumber()'>9</span></button>
+    <h1>Knowledge per second: <span id = "kps">0</span></h1>
+    <h1>Knowledge per click: <span id = "kpc">0</span></h1>
+    <button onclick = "theorems()" style = "float: right; padding: 20px 50px 20px 20px;">Theorems</button>
+    <button onclick = "mathematician()" style = "float: right; padding: 20px 50px 20px 20px;">Mathmeticians</button>
+    <br><br><br><br>
+    <div style = "text-align: right; background-color: aliceblue; display: block"><h1 style = "display: inline;">Buy:</h1> <button onclick = "buyone()" style = "float: right; padding: 20px 50px 20px 20px; display: inline;">1</button> <button onclick = "buymax()" style = "float: right; padding: 20px 50px 20px 20px; ">Max</button></div>
+    <div style = "text-align: right; background-color: aliceblue; display: block" id = "mathematicians"><h1>Thales of Miletus, Level <span id = "thaleslevel">0</span></h1>
+    <img src = "thales.jpg"> Thales is widely considered one of the first mathmeticians. Buy him to spread knowledge to your people and earn 1 more knowledge per click. <button onclick = "buythales(Event);" class = "buybutton">Buy <span class = "setting">1</span> for <span id = "thalescost">21</span></button>
+        <div id = "py" style = "display: none;"><h1>Pythagoras, Level <span id = "pythagoraslevel">0</span></h1> <img height="128px"src ="pythagoras.jpg"> Pythagoras is an important figure in mathmatics. He proved that the earth is round. Buy him and earn knowledge per second.<button onclick = "buypythagoras(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "pythagorascost">150</span></button></div>
+        <div id = "eu" style = "display: none;"><h1>Euclid, Level <span id = "euclidlevel">0</span></h1> <img height="128px"src ="euclid.jpg"> Euclid created Euclidian Geometry, or plane geometry. He also created a book, <i>Elements</i> that still is relevant today.<button onclick = "buyeuclid(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "euclidcost">10000</span></button></div>
+        <div id = "ar" style = "display: none;"><h1>Archimedes, Level <span id = "archimedeslevel">0</span></h1> <img height="128px"src ="archimedes.jpg"> Archimedes was able to answer many questions about circles. He calculated that πr<sup>2</sup> calculates the area of a circle. <button onclick = "buyarchimedes();" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "archimedescost">3141592</span></button></div>
+    
+
+    
+    
+    
+    
+    
+    </div>
+    <div style = "text-align: right; background-color: aliceblue; display: none;" id = "theorems"> Coming Soon!!</div>
+    <script type = "text/javascript">
+    var globalmultiplier = 1;
+    var knowledge = 0;
+    var thaleslevel = 0;
+    var thalescost = 21;
+    var thalesmultiplier = 1;
+    var pythagoraslevel = 0;
+    var pythagorascost = 150;
+    var pythagorasmultiplier = 1;
+    var euclidlevel = 0;
+    var euclidcost = 10000;
+    var euclidmultiplier = 1;
+    var archimedeslevel = 0;
+    var archimedescost = 3141592;
+    var archimedesmultiplier = 1;
+    var buysetting = "one";
+    var kps = 0;
+    var knowledgeperclick = 1;
+    if (localStorage.getItem("time") != null){
+        kps = Number(localStorage.getItem("kps"));
+        knowledgeperclick = Number(localStorage.getItem("kpc"));
+        globalmultiplier = localStorage.getItem("globalmultiplier");
+        thalesmultiplier = localStorage.getItem("thalesmultiplier");
+        thaleslevel = localStorage.getItem("thaleslevel");
+        pythagorasmultiplier = localStorage.getItem("pythagorasmultiplier");
+        pythagoraslevel = localStorage.getItem("pythagoraslevel");
+        euclidmultiplier = localStorage.getItem("euclidmultiplier");
+        euclidlevel = localStorage.getItem("euclidlevel");
+        archimedesmultiplier = localStorage.getItem("archimedesmultiplier");
+        archimedeslevel = localStorage.getItem("archimedeslevel");
+        knowledge = Number(localStorage.getItem("knowledge") + kps * ((Date.now()/1000) - localStorage.getItem("time")));}
+        function changenumber() {
+    var tetris = Math.round(10 * Math.random());
+    document.getElementById("clicker").innerHTML = tetris;
+}
+    function addknowledge() {
+    knowledge = knowledge + knowledgeperclick;
+    document.getElementById("themath").innerHTML = knowledge;
+}
+    function theorems(){
+        document.getElementById("theorems").style.display = "block";
+        document.getElementById("mathematicians").style.display = "none";
+    }
+    function mathematician(){
+        document.getElementById("theorems").style.display = "none";
+        document.getElementById("mathematicians").style.display = "block";
+    }
+    function buythales(){ //Enable feature for all mathmeticians
+        if (buysetting == "max"){
+        while (knowledge >= thalescost){
+    thalescost = Math.round(21 * Math.pow(1.07, thaleslevel + 1));
+    if (knowledge >= thalescost){
+        thaleslevel = thaleslevel + 1;
+        knowledge = knowledge - thalescost;
+        if (thaleslevel % 25 == 0){
+            thalesmultiplier = thalesmultiplier * 4;
+        }
+        knowledgeperclick = knowledgeperclick + 1 * thalesmultiplier * globalmultiplier;
+        document.getElementById("py").style.display = "block";
+        thalescost = Math.round(21 * Math.pow(1.07, thaleslevel + 1));
+        document.getElementById("thalescost").innerHTML = thalescost;
+        document.getElementById("thaleslevel").innerHTML = thaleslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kpc").innerHTML = knowledgeperclick;
+    }}}
+    else{
+        
+    thalescost = Math.round(21 * Math.pow(1.07, thaleslevel + 1));
+    if (knowledge >= thalescost){
+        thaleslevel = thaleslevel + 1;
+        knowledge = knowledge - thalescost;
+        if (thaleslevel % 25 == 0){
+            thalesmultiplier = thalesmultiplier * 4
+        }
+        knowledgeperclick = knowledgeperclick + 1 * thalesmultiplier;
+        document.getElementById("py").style.display = "block";
+        thalescost = Math.round(21 * Math.pow(1.07, thaleslevel + 1));
+        document.getElementById("thalescost").innerHTML = thalescost;
+        document.getElementById("thaleslevel").innerHTML = thaleslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kpc").innerHTML = knowledgeperclick;
+    }}
+    }
+     function buypythagoras(){
+    if (buysetting == "max"){
+        while (knowledge >= pythagorascost){
+            pythagorascost = Math.round(150 * Math.pow(1.07, pythagoraslevel + 1));
+    if (knowledge >= pythagorascost){
+        pythagoraslevel = pythagoraslevel + 1;
+        knowledge = knowledge - pythagorascost;
+        if (pythagoraslevel % 25 == 0){
+            pythagorasmultiplier = pythagorasmultiplier * 4
+        }
+        kps = kps + (6* pythagorasmultiplier);
+        pythagorascost = Math.round(150 * Math.pow(1.07, pythagoraslevel + 1));
+        document.getElementById("eu").style.display = "block";
+        document.getElementById("pythagorascost").innerHTML = pythagorascost;
+        document.getElementById("pythagoraslevel").innerHTML = pythagoraslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kps").innerHTML = kps;
+    }
+        }
+    }
+    else{pythagorascost = Math.round(150 * Math.pow(1.07, pythagoraslevel + 1));
+    if (knowledge >= pythagorascost){
+        pythagoraslevel = pythagoraslevel + 1;
+        knowledge = knowledge - pythagorascost;
+        if (pythagoraslevel % 25 == 0){
+            pythagorasmultiplier = pythagorasmultiplier * 4
+        }
+        kps = kps + (6* pythagorasmultiplier);
+        pythagorascost = Math.round(150 * Math.pow(1.07, pythagoraslevel + 1));
+        document.getElementById("eu").style.display = "block";
+        document.getElementById("pythagorascost").innerHTML = pythagorascost;
+        document.getElementById("pythagoraslevel").innerHTML = pythagoraslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kps").innerHTML = kps;
+    }
+    }}
+     function buyeuclid(){
+         if (buysetting == "max"){
+             while(knowledge >= euclidcost){
+                 euclidcost = Math.round(10000 * Math.pow(1.07, euclidlevel + 1));
+    if (knowledge >= euclidcost){
+        euclidlevel = euclidlevel + 1;
+        knowledge = knowledge - euclidcost;
+        if (euclidlevel % 25 == 0){
+            euclidmultiplier = euclidmultiplier * 4
+        }
+        knowledgeperclick = knowledgeperclick + (450 * euclidmultiplier);
+        euclidcost = Math.round(10000 * Math.pow(1.07, euclidlevel + 1));
+        document.getElementById("ar").style.display = "block";
+        document.getElementById("euclidcost").innerHTML = euclidcost;
+        document.getElementById("euclidlevel").innerHTML = euclidlevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kpc").innerHTML = knowledgeperclick;
+
+    }
+    }
+             }
+         
+         else{
+    euclidcost = Math.round(10000 * Math.pow(1.07, euclidlevel + 1));
+    if (knowledge >= euclidcost){
+        euclidlevel = euclidlevel + 1;
+        knowledge = knowledge - euclidcost;
+        if (euclidlevel % 25 == 0){
+            euclidmultiplier = euclidmultiplier * 4
+        }
+        knowledgeperclick = knowledgeperclick + (450 * euclidmultiplier);
+        euclidcost = Math.round(10000 * Math.pow(1.07, euclidlevel + 1));
+        document.getElementById("ar").style.display = "block";
+        document.getElementById("euclidcost").innerHTML = euclidcost;
+        document.getElementById("euclidlevel").innerHTML = euclidlevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kpc").innerHTML = knowledgeperclick;
+
+    }
+    }}
+    function buyone(){
+        var i;
+        var selection = document.getElementsByClassName("setting")
+        for (i = 0; i < selection.length; i++) {
+    selection[i].innerHTML = "1";
+  }
+        buysetting = "one"
+    }
+    function buymax(){
+        var i;
+        var selection = document.getElementsByClassName("setting")
+        for (i = 0; i < selection.length; i++) {
+    selection[i].innerHTML = "MAX";
+  }
+        buysetting = "max"
+    }
+    function buyarchimedes(){
+         if (buysetting == "max"){
+        while (knowledge >= archimedescost){
+              archimedescost = Math.round(3141592 * Math.pow(1.07, archimedeslevel + 1));
+    if (knowledge >= archimedescost){
+        archimedeslevel = archimedeslevel + 1;
+        knowledge = knowledge - archimedescost;
+        if (archimedeslevel % 25 == 0){
+            archimedesmultiplier = archimedesmultiplier * 4
+        }
+        kps = kps + 31415 * archimedesmultiplier;
+        archimedescost = Math.round(10000 * Math.pow(1.07, archimedeslevel + 1));
+        document.getElementById("archimedescost").innerHTML = archimedescost;
+        document.getElementById("archimedeslevel").innerHTML = archimedeslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kps").innerHTML = kps;
+
+        }}}
+        else{
+    archimedescost = Math.round(3141592 * Math.pow(1.07, archimedeslevel + 1));
+    if (knowledge >= archimedescost){
+        archimedeslevel = archimedeslevel + 1;
+        knowledge = knowledge - archimedescost;
+        if (archimedeslevel % 25 == 0){
+            archimedesmultiplier = archimedesmultiplier * 4
+        }
+        kps = kps + 31415 * archimedesmultiplier;
+        archimedescost = Math.round(3141592 * Math.pow(1.07, archimedeslevel + 1));
+        document.getElementById("archimedescost").innerHTML = archimedescost;
+        document.getElementById("archimedeslevel").innerHTML = archimedeslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kps").innerHTML = kps;
+
+    }
+    }}
+    window.setInterval(function(){
+        var today = Math.round(Date.now()/1000);
+        console.log(today);
+        document.title = "Knowledge Clicker: " + knowledge + " knowledge";
+        localStorage.setItem("time", today);
+        localStorage.setItem("knowledge",Math.round(knowledge) );
+        localStorage.setItem("kps", kps);
+        localStorage.setItem("kpc", knowledgeperclick);
+        localStorage.setItem("globalmultiplier", globalmultiplier);
+        localStorage.setItem("thalesmultiplier", thalesmultiplier);
+        localStorage.setItem("thaleslevel", thaleslevel);
+        localStorage.setItem("pythagorasmultiplier", pythagorasmultiplier);
+        localStorage.setItem("pythagoraslevel", pythagoraslevel);
+        localStorage.setItem("euclidmultiplier", euclidmultiplier);
+        localStorage.setItem("euclidlevel", euclidlevel);
+        localStorage.setItem("archimedesmultiplier", archimedesmultiplier);
+        localStorage.setItem("archimedeslevel", archimedeslevel);
+        }, 1000)
+        
+    window.setInterval(function(){
+        knowledge = knowledge + kps;
+        document.getElementById("themath").innerHTML = knowledge;
+    }, 1000);</script>
+</body></html>
