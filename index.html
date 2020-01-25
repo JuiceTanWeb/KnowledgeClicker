@@ -1,4 +1,4 @@
-<doctypeHTML!>
+<DOCTYPE HTML!>
 <html>
 <head>
      <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <link rel = "icon" href = "favicon.ico" type="image/x-icon">
 <style>
     body{
-        background-image: url('stars.jpeg');
+        background-image: url('resources/stars.jpeg');
     }
     h1{
         background-color: aliceblue;
@@ -31,11 +31,10 @@
     <br><br><br><br>
     <div style = "text-align: right; background-color: aliceblue; display: block"><h1 style = "display: inline;">Buy:</h1> <button onclick = "buyone()" style = "float: right; padding: 20px 50px 20px 20px; display: inline;">1</button> <button onclick = "buymax()" style = "float: right; padding: 20px 50px 20px 20px; ">Max</button></div>
     <div style = "text-align: right; background-color: aliceblue; display: block" id = "mathematicians"><h1>Thales of Miletus, Level <span id = "thaleslevel">0</span></h1>
-    <img src = "thales.jpg"> Thales is widely considered one of the first mathmeticians. Buy him to spread knowledge to your people and earn 1 more knowledge per click. <button onclick = "buythales(Event);" class = "buybutton">Buy <span class = "setting">1</span> for <span id = "thalescost">21</span></button>
-        <div id = "py" style = "display: none;"><h1>Pythagoras, Level <span id = "pythagoraslevel">0</span></h1> <img height="128px"src ="pythagoras.jpg"> Pythagoras is an important figure in mathmatics. He proved that the earth is round. Buy him and earn knowledge per second.<button onclick = "buypythagoras(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "pythagorascost">150</span></button></div>
-        <div id = "eu" style = "display: none;"><h1>Euclid, Level <span id = "euclidlevel">0</span></h1> <img height="128px"src ="euclid.jpg"> Euclid created Euclidian Geometry, or plane geometry. He also created a book, <i>Elements</i> that still is relevant today.<button onclick = "buyeuclid(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "euclidcost">10000</span></button></div>
-        <div id = "ar" style = "display: none;"><h1>Archimedes, Level <span id = "archimedeslevel">0</span></h1> <img height="128px"src ="archimedes.jpg"> Archimedes was able to answer many questions about circles. He calculated that πr<sup>2</sup> calculates the area of a circle. <button onclick = "buyarchimedes();" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "archimedescost">3141592</span></button></div>
-    
+    <img src = "resources/thales.jpg"> Thales is widely considered one of the first mathmeticians. Buy him to spread knowledge to your people and earn 1 more knowledge per click. <button onclick = "buythales(Event);" class = "buybutton">Buy <span class = "setting">1</span> for <span id = "thalescost">21</span></button>
+        <div id = "py" style = "display: none;"><h1>Pythagoras, Level <span id = "pythagoraslevel">0</span></h1> <img height="128px"src ="resources/pythagoras.jpg"> Pythagoras is an important figure in mathmatics. He proved that the earth is round. Buy him and earn knowledge per second.<button onclick = "buypythagoras(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "pythagorascost">150</span></button></div>
+        <div id = "eu" style = "display: none;"><h1>Euclid, Level <span id = "euclidlevel">0</span></h1> <img height="128px"src ="resources/euclid.jpg"> Euclid created Euclidian Geometry, or plane geometry. He also created a book, <i>Elements</i> that still is relevant today.<button onclick = "buyeuclid(event);" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "euclidcost">10000</span></button></div>
+        <div id = "ar" style = "display: none;"><h1>Archimedes, Level <span id = "archimedeslevel">0</span></h1> <img height="128px"src ="resources/archimedes.jpg"> Archimedes was able to answer many questions about circles. He calculated that πr<sup>2</sup> calculates the area of a circle. <button onclick = "buyarchimedes();" class = "buybutton"> Buy <span class = "setting">1</span> for <span id = "archimedescost">3141592</span></button></div>
 
     
     
@@ -62,6 +61,35 @@
     var buysetting = "one";
     var kps = 0;
     var knowledgeperclick = 1;
+        if (localStorage.getItem("seconds") != null){
+            kps = Number(localStorage.getItem("kps"));
+        knowledgeperclick = Number(localStorage.getItem("kpc"));
+globalmultiplier = Number(localStorage.getItem("globalmultiplier"));
+        thaleslevel = Number(localStorage.getItem("thaleslevel"));
+        thalesmultiplier = Number(localStorage.getItem("thalesmultiplier"));
+         pythagoraslevel = Number(localStorage.getItem("pythagoraslevel"));
+        pythagorasmultiplier = Number(localStorage.getItem("pythagorasmultiplier"));
+         euclidlevel = Number(localStorage.getItem("euclidlevel"));
+        euclidmultiplier = Number(localStorage.getItem("euclidmultiplier"));
+         archimedeslevel = Number(localStorage.getItem("archimedeslevel"));
+        archimedesmultiplier = Number(localStorage.getItem("archimedesmultiplier"));
+            knowledge = Number(localStorage.getItem("knowledge")) + ((Date.now() - Number(localStorage.getItem("seconds"))) * kps);
+            thalescost = Math.round(21 * Math.pow(1.07, thaleslevel));
+            pythagorascost = Math.round(150 * Math.pow(1.07, pythagoraslevel));
+            euclidcost = Math.round(10000 * Math.pow(1.07, euclidlevel));
+            archimedescost = Math.round(3141592 * Math.pow(1.07, archimedeslevel));
+            document.getElementById("thalescost").innerHTML = thalescost;
+        document.getElementById("thaleslevel").innerHTML = thaleslevel;
+        document.getElementById("themath").innerHTML = knowledge;
+        document.getElementById("kpc").innerHTML = knowledgeperclick;
+        document.getElementById("pythagorascost").innerHTML = pythagorascost;
+        document.getElementById("pythagoraslevel").innerHTML = pythagoraslevel;
+             document.getElementById("kps").innerHTML = kps;
+            document.getElementById("euclidcost").innerHTML = euclidcost;
+        document.getElementById("euclidlevel").innerHTML = euclidlevel;
+             document.getElementById("archimedescost").innerHTML = archimedescost;
+        document.getElementById("archimedeslevel").innerHTML = archimedeslevel;
+        }
         function changenumber() {
     var tetris = Math.round(10 * Math.random());
     document.getElementById("clicker").innerHTML = tetris;
@@ -243,11 +271,24 @@
     }}
     window.setInterval(function(){
         document.title = "Knowledge Clicker: " + knowledge + " knowledge";
-        
+        localStorage.setItem("seconds", Date.now());
+        localStorage.setItem("knowledge", knowledge);
+        localStorage.setItem("kps", kps);
+        localStorage.setItem("kpc", knowledgeperclick);
+localStorage.setItem("globalmultiplier", globalmultiplier);
+        localStorage.setItem("thaleslevel", thaleslevel);
+        localStorage.setItem("thalesmultiplier", thalesmultiplier);
+         localStorage.setItem("pythagoraslevel", pythagoraslevel);
+        localStorage.setItem("pythagorasmultiplier", pythagorasmultiplier);
+         localStorage.setItem("euclidlevel", euclidlevel);
+        localStorage.setItem("euclidmultiplier", euclidmultiplier);
+         localStorage.setItem("archimedeslevel", archimedeslevel);
+        localStorage.setItem("archimedesmultiplier", archimedesmultiplier);
         }, 1000)
         
     window.setInterval(function(){
         knowledge = knowledge + kps;
         document.getElementById("themath").innerHTML = knowledge;
     }, 1000);</script>
+    <div style = "text-align: center;"> <a href = "changelog.html"><button style = "background-color: aliceblue; display: block;">Changelog</button></a></div>
 </body></html>
