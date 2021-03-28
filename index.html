@@ -133,6 +133,10 @@ globalmultiplier = Number(localStorage.getItem("globalmultiplier"));
                 ptolemymultiplier = 1;
             }
         }
+        function numbershorten(number){
+            var phrase = Math.round(100*number/Math.round(Math.log(number)))/100 Math.round(Math.log(number)))
+            return shortenednumber
+        }
         function changenumber() {
     var tetris = Math.round(10 * Math.random());
     document.getElementById("clicker").innerHTML = tetris;
@@ -150,7 +154,7 @@ globalmultiplier = Number(localStorage.getItem("globalmultiplier"));
         document.getElementById("mathematicians").style.display = "block";
     }
         function travel(){
-           var decision = confirm('Are you sure? You will get ' + Math.round(Math.cbrt(knowledge/1000000000000)) + 'experience, which increases knowledge by 1% each.')
+           var decision = confirm('Are you sure? You will get ' + Math.round(Math.cbrt(knowledge/10000000fnum)) + ' experience, which increases knowledge by 1% each.')
            if (decision != false){
               experience = Math.round(Math.cbrt(knowledge/1000000000000)) + experience;
               globalmultiplier = globalmultiplier + Math.round(Math.round(Math.cbrt(knowledge/1000000000000)) / 100);
